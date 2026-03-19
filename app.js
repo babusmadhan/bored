@@ -30,6 +30,7 @@ class App {
         ];
 
         this.init();
+        this.checkMobileNotice();
         this.checkAdsPopup();
         this.startAdCycle();
         this.updateLeaderboardUI();
@@ -41,6 +42,26 @@ class App {
         this.loadRandomGame();
         this.username = localStorage.getItem('bored_username') || "GUEST";
         this.hasEnteredName = !!localStorage.getItem('bored_username');
+    }
+
+    checkMobileNotice() {
+        if (window.innerWidth <= 768) {
+            if (!sessionStorage.getItem('bored_mobile_warned')) {
+                const popup = document.getElementById('mobile-warning-popup');
+                const closeBtn = document.getElementById('close-mobile-warning');
+                const ackBtn = document.getElementById('ack-mobile-warning');
+                
+                if (popup) {
+                    popup.classList.remove('hidden');
+                    const dismiss = () => {
+                        popup.classList.add('hidden');
+                        sessionStorage.setItem('bored_mobile_warned', 'true');
+                    };
+                    if (closeBtn) closeBtn.onclick = dismiss;
+                    if (ackBtn) ackBtn.onclick = dismiss;
+                }
+            }
+        }
     }
 
     startAdCycle() {
