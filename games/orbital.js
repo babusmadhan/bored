@@ -45,8 +45,8 @@ class OrbitalGame {
 
     handleMouseMove(e) {
         const rect = this.canvas.getBoundingClientRect();
-        const dx = e.clientX - rect.left - 300;
-        const dy = e.clientY - rect.top - 200;
+        const dx = ((e.clientX - rect.left) * (this.canvas.width / rect.width)) - 300;
+        const dy = ((e.clientY - rect.top) * (this.canvas.height / rect.height)) - 200;
         this.angle = Math.atan2(dy, dx);
     }
 

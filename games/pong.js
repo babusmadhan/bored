@@ -47,7 +47,7 @@ class PongGame {
 
     handleMouseMove(e) {
         const rect = this.canvas.getBoundingClientRect();
-        this.p1.y = e.clientY - rect.top - this.paddleH / 2;
+        this.p1.y = ((e.clientY - rect.top) * (this.canvas.height / rect.height)) - this.paddleH / 2;
     }
 
     loop() {

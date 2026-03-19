@@ -191,6 +191,58 @@ class App {
         document.getElementById('close-leaderboard').onclick = () => {
             document.getElementById('leaderboard-popup').classList.add('hidden');
         };
+
+        // Touch to Mouse translation
+        this.canvasArea.addEventListener('touchstart', (e) => this.handleTouch(e, 'mousedown'), {passive: false});
+        this.canvasArea.addEventListener('touchmove', (e) => this.handleTouch(e, 'mousemove'), {passive: false});
+        this.canvasArea.addEventListener('touchend', (e) => this.handleTouch(e, 'mouseup'), {passive: false});
+
+        // Mobile D-pad Controls
+        const dispatchKey = (code, key) => {
+            window.dispatchEvent(new KeyboardEvent('keydown', { key: key, code: code }));
+        };
+        const dispatchKeyUp = (code, key) => {
+            window.dispatchEvent(new KeyboardEvent('keyup', { key: key, code: code }));
+        };
+        
+        const attachDpadBtn = (id, code, key) => {
+            const btn = document.getElementById(id);
+            if (!btn) return;
+            // Prevent default to stop scrolling
+            btn.addEventListener('touchstart', (e) => { e.preventDefault(); dispatchKey(code, key); });
+            btn.addEventListener('mousedown', (e) => { e.preventDefault(); dispatchKey(code, key); });
+            btn.addEventListener('touchend', (e) => { e.preventDefault(); dispatchKeyUp(code, key); });
+            btn.addEventListener('mouseup', (e) => { e.preventDefault(); dispatchKeyUp(code, key); });
+            btn.addEventListener('mouseleave', (e) => { e.preventDefault(); dispatchKeyUp(code, key); });
+        };
+
+        attachDpadBtn('btn-up', 'ArrowUp', 'ArrowUp');
+        attachDpadBtn('btn-down', 'ArrowDown', 'ArrowDown');
+        attachDpadBtn('btn-left', 'ArrowLeft', 'ArrowLeft');
+        attachDpadBtn('btn-right', 'ArrowRight', 'ArrowRight');
+        attachDpadBtn('btn-action', 'Space', ' ');
+    }
+
+    handleTouch(e, mouseEventType) {
+        if (!e.target || e.target.tagName !== 'CANVAS') return;
+        e.preventDefault();
+        
+        if (e.touches && e.touches.length > 0) {
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent(mouseEventType, {
+                clientX: touch.clientX,
+                clientY: touch.clientY,
+                bubbles: true,
+                cancelable: true
+            });
+            e.target.dispatchEvent(mouseEvent);
+        } else if (mouseEventType === 'mouseup') {
+            const mouseEvent = new MouseEvent(mouseEventType, {
+                bubbles: true,
+                cancelable: true
+            });
+            e.target.dispatchEvent(mouseEvent);
+        }
     }
 
     initAudio() {

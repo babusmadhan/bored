@@ -80,7 +80,7 @@ class BallCatchGame {
     handleMouseMove(e) {
         const rect = this.canvas.getBoundingClientRect();
         const root = document.documentElement;
-        const mouseX = e.clientX - rect.left - root.scrollLeft;
+        const mouseX = ((e.clientX - rect.left) * (this.canvas.width / rect.width)) - root.scrollLeft;
         this.paddle.x = mouseX - this.paddle.w / 2;
         
         // Keep in bounds

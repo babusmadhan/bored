@@ -111,7 +111,7 @@ class BricksGame {
     }
 
     handleMouseMove(e) {
-        const relativeX = e.clientX - this.canvas.getBoundingClientRect().left;
+        const relativeX = ((e.clientX - this.canvas.getBoundingClientRect().left) * (this.canvas.width / this.canvas.getBoundingClientRect().width));
         if (relativeX > 0 && relativeX < this.canvas.width) {
             this.paddle.x = relativeX - this.paddle.width / 2;
         }

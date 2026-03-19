@@ -46,8 +46,8 @@ class StrikeGame {
     handleAction(e) {
         if (!this.running) return;
         const rect = this.canvas.getBoundingClientRect();
-        const mx = e.clientX - rect.left;
-        const my = e.clientY - rect.top;
+        const mx = ((e.clientX - rect.left) * (this.canvas.width / rect.width));
+        const my = ((e.clientY - rect.top) * (this.canvas.height / rect.height));
         
         let hit = false;
         for (let i = this.targets.length - 1; i >= 0; i--) {

@@ -70,8 +70,8 @@ class BoomGame {
 
     handleClick(e) {
         const rect = this.canvas.getBoundingClientRect();
-        const mx = e.clientX - rect.left;
-        const my = e.clientY - rect.top;
+        const mx = ((e.clientX - rect.left) * (this.canvas.width / rect.width));
+        const my = ((e.clientY - rect.top) * (this.canvas.height / rect.height));
         
         for(let i = this.nodes.length - 1; i >= 0; i--) {
             const n = this.nodes[i];

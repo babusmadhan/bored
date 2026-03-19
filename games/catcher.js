@@ -45,7 +45,7 @@ class CatcherGame {
 
     handleMouseMove(e) {
         const rect = this.canvas.getBoundingClientRect();
-        this.bucket.x = e.clientX - rect.left - this.bucket.w / 2;
+        this.bucket.x = ((e.clientX - rect.left) * (this.canvas.width / rect.width)) - this.bucket.w / 2;
         if (this.bucket.x < 0) this.bucket.x = 0;
         if (this.bucket.x > 600 - this.bucket.w) this.bucket.x = 600 - this.bucket.w;
     }

@@ -42,7 +42,7 @@ class HanoiGame {
     handleClick(e) {
         if (!this.running) return;
         const rect = this.canvas.getBoundingClientRect();
-        const mx = e.clientX - rect.left;
+        const mx = ((e.clientX - rect.left) * (this.canvas.width / rect.width));
         const stackIdx = Math.floor(mx / 200);
 
         if (this.selected === null) {

@@ -54,8 +54,8 @@ class AvoidGame {
 
     handleMouseMove(e) {
         const rect = this.canvas.getBoundingClientRect();
-        this.player.x = e.clientX - rect.left;
-        this.player.y = e.clientY - rect.top;
+        this.player.x = ((e.clientX - rect.left) * (this.canvas.width / rect.width));
+        this.player.y = ((e.clientY - rect.top) * (this.canvas.height / rect.height));
     }
 
     loop() {
