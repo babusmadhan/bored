@@ -257,14 +257,37 @@ header {
     transition: all 0.8s ease;
     max-height: 500px;
     overflow: hidden;
+    background: rgba(10, 10, 12, 0.6);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--glass-border);
+    padding: 1rem 0;
+    text-align: center;
+    position: relative;
+    z-index: 10;
 }
 
 #footer-ad-bar.ad-hidden {
     max-height: 50px; /* Keep a bit for credits or hide completely */
+    padding: 0.5rem 0;
 }
 
 #footer-ad-bar.ad-hidden .ad-container {
     display: none;
+}
+
+.google-ad-banner {
+    position: relative;
+    width: 100%;
+    max-width: 970px;
+    margin: 0 auto;
+    min-height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.google-ad-banner .ad-label {
+    top: -20px;
 }
 
 .close-ad-btn {
@@ -355,6 +378,8 @@ header {
 .google-ad-vertical {
     display: flex;
     justify-content: center;
+    width: 100%;
+    min-height: 250px;
 }
 
 /* Ad Popup */
@@ -556,6 +581,11 @@ canvas {
         min-height: auto;
         width: 100%;
         margin-bottom: 1rem;
+        padding: 1rem 0;
+    }
+    
+    .google-ad-vertical {
+        min-height: 100px; /* For mobile banners */
     }
     
     .sidebar-info {
